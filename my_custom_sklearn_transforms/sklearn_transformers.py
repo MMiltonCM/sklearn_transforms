@@ -26,8 +26,9 @@ class SelectFeatures(BaseEstimator, TransformerMixin):
     
     def transform(self, X):
         data = X.copy()
-        y = data['OBJETIVO']!="Sospechoso"
-        del data['OBJETIVO']
+        aux = X[['OBJETIVO']].transform(lambda x: x != "Sospechoso")
+        y = aux.get('OBJETIVO')
+        data = data.drop(columns=['OBJETIVO'])
         selector = SelectFromModel(RandomForestClassifier(n_estimators=100), max_features=10)
         selector.fit(data, y)
         support = selector.get_support()
