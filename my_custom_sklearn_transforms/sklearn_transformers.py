@@ -12,6 +12,7 @@ class DropColumns(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
+        print(type(X))
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
         # Retornamos um novo dataframe sem as colunas indesejadas
@@ -25,7 +26,6 @@ class SelectFeatures(BaseEstimator, TransformerMixin):
         return self
     
     def transform(self, X):
-        print(type(X))
         data = X.copy()
         aux = X[['OBJETIVO']].transform(lambda x: x != "Sospechoso")
         y = aux.get('OBJETIVO')
